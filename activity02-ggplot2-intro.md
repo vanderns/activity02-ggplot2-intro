@@ -178,7 +178,8 @@ Comment on the strengths of the boxplot compared to the jitterplot and
 vice versa. That is, what can you easily determine by looking at the
 boxplot? What about the jitterplot?
 
-**Response**:
+**Response**: The boxplot lets you see defined summary statistics, while
+a jitterplot lets you see the spread of points visually
 
 Knit, then stage everything listed in your **Git** pane, commit (with a
 meaningful commit message), and push to your GitHub repo. Then, go to
@@ -186,7 +187,8 @@ GitHub and compare/contrast your `activity02-ggplot2-intro.Rmd` and
 `activity02-ggplot2-intro.md` files. Which is easier to read? Which
 looks more professional?
 
-**Response**:
+**Response**: The knit file is easier to read than the file in GitHub,
+as we can see pictures and links and such.
 
 Now, wouldn’t it be nice if we could combine these two plots so that we
 get the benefits of both!?! That is, how can we overlay the jitterplot
@@ -196,10 +198,22 @@ my *hint*:
 -   Re-create the boxplot with color that you did above, then
 -   *Add* another geometry layer for the jitterplot.
 
+``` r
+ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = species, color = species)) +
+  geom_boxplot() + geom_jitter() 
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](activity02-ggplot2-intro_files/figure-gfm/box-jitter-combined-1.png)<!-- -->
+
 Play around with doing the jitterplot laid over the boxplot and the
 boxplot laid over the jitterplot. Which do you prefer? Why?
 
-**Response**:
+**Response**: The jitterplot on top of the boxplot to see all of th
+points
 
 This is getting us closer to one of my favorite plots - the raincloud
 plot. We are not quite ready to create this plot, but we will get there
@@ -213,12 +227,23 @@ default white coloring. In the code chunk below, explore different
 methods to try to create this plot. A hint, all `geom_*` have a
 `mapping` argument.
 
+``` r
+ggplot(data = penguins) +
+  geom_boxplot(mapping = aes(x = flipper_length_mm, y = species)) + geom_jitter(mapping = aes(x = flipper_length_mm, y = species, color = species))
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
+
+![](activity02-ggplot2-intro_files/figure-gfm/jitter-colored-only-1.png)<!-- -->
+
 In the above code chunk, continue to play around with having the
 aesthetics mapped in the different layers. For example, how does having
 all of them mapped in the `ggplot` call compared to having these instead
 mapped in the `geom_boxplot` layer? Comment on what you notice.
 
-**Response**:
+**Response**: Having the aes in the ggplot effects all plots made.
 
 Knit, then stage everything listed in your **Git** pane, commit (with a
 meaningful commit message), and push to your GitHub repo. Go to GitHub
@@ -246,7 +271,32 @@ graphs). Using these three graphs to discuss which of these three
 categorical variables seems to be contributing more to these two peaks
 and explain your reasoning.
 
-**Response**:
+``` r
+ggplot(data=penguins)+ geom_boxplot(mapping=aes(x=bill_length_mm, y=species))
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_boxplot).
+
+![](activity02-ggplot2-intro_files/figure-gfm/bill_length_by_species-1.png)<!-- -->
+
+``` r
+ggplot(data=penguins)+ geom_boxplot(mapping=aes(x=bill_length_mm, y=sex))
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_boxplot).
+
+![](activity02-ggplot2-intro_files/figure-gfm/bill_length_by_sex-1.png)<!-- -->
+
+``` r
+ggplot(data=penguins)+ geom_boxplot(mapping=aes(x=bill_length_mm, y=island))
+```
+
+    ## Warning: Removed 2 rows containing non-finite values (stat_boxplot).
+
+![](activity02-ggplot2-intro_files/figure-gfm/bill_length_by_island-1.png)<!-- -->
+
+**Response**: I think species is the variable that explains the most to
+the two peaks
 
 Knit, then stage everything listed in your **Git** pane, commit (with a
 meaningful commit message), and push to your GitHub repo. Go to GitHub
@@ -260,6 +310,13 @@ exploring scatterplots using `{ggplot2}`.
 
 In the code chunk below, create a scatterplot for the relationship
 between `flipper_length_mm` and `body_mass_g`.
+
+``` r
+library(ggplot2)
+ggplot(data=penguins)+scatter.smooth(x=flipper_length_mm, y=body_mass_g)
+```
+
+    ## Error in xy.coords(x, y, xlabel, ylabel): object 'body_mass_g' not found
 
 Describe any patterns that you notice.
 

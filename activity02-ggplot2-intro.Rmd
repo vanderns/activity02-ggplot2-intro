@@ -145,7 +145,7 @@ Then, go to GitHub and compare/contrast your `activity02-ggplot2-intro.Rmd` and 
 Which is easier to read?
 Which looks more professional?
 
-**Response**:
+**Response**: The knit file is easier to read than the file in GitHub, as we can see pictures and links and such.
 
 
 Now, wouldn't it be nice if we could combine these two plots so that we get the benefits of both!?!
@@ -156,14 +156,15 @@ Try doing the following in the code chunk below with my *hint*:
 - *Add* another geometry layer for the jitterplot.
 
 ```{r box-jitter-combined}
-
+ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = species, color = species)) +
+  geom_boxplot() + geom_jitter() 
 ```
 
 Play around with doing the jitterplot laid over the boxplot and the boxplot laid over the jitterplot.
 Which do you prefer?
 Why?
 
-**Response**:
+**Response**: The jitterplot on top of the boxplot to see all of th points
 
 
 This is getting us closer to one of my favorite plots - the raincloud plot.
@@ -176,14 +177,15 @@ In the code chunk below, explore different methods to try to create this plot.
 A hint, all `geom_*` have a `mapping` argument.
 
 ```{r jitter-colored-only}
-
+ggplot(data = penguins) +
+  geom_boxplot(mapping = aes(x = flipper_length_mm, y = species)) + geom_jitter(mapping = aes(x = flipper_length_mm, y = species, color = species))
 ```
 
 In the above code chunk, continue to play around with having the aesthetics mapped in the different layers.
 For example, how does having all of them mapped in the `ggplot` call compared to having these instead mapped in the `geom_boxplot` layer?
 Comment on what you notice.
 
-**Response**:
+**Response**: Having the aes in the ggplot effects all plots made.
 
 
 Knit, then stage everything listed in your **Git** pane, commit (with a meaningful commit message), and push  to your GitHub repo.
@@ -205,20 +207,20 @@ Create graphs to explore the relationship between `bill_length_mm` and each of `
 Using these three graphs to discuss which of these three categorical variables seems to be contributing more to these two peaks and explain your reasoning.
 
 ```{r bill_length_by_species}
-
+ggplot(data=penguins)+ geom_boxplot(mapping=aes(x=bill_length_mm, y=species))
 ```
 
 
 ```{r bill_length_by_sex}
-
+ggplot(data=penguins)+ geom_boxplot(mapping=aes(x=bill_length_mm, y=sex))
 ```
 
 
 ```{r bill_length_by_island}
-
+ggplot(data=penguins)+ geom_boxplot(mapping=aes(x=bill_length_mm, y=island))
 ```
 
-**Response**:
+**Response**: I think species is the variable that explains the most to the two peaks
 
 
 
@@ -233,7 +235,8 @@ Here we continue exploring scatterplots using `{ggplot2}`.
 In the code chunk below, create a scatterplot for the relationship between `flipper_length_mm` and `body_mass_g`.
 
 ```{r flipper_vs_mass}
-
+library(ggplot2)
+ggplot(data=penguins)+scatter.smooth(x=flipper_length_mm, y=body_mass_g)
 ```
 
 Describe any patterns that you notice.
